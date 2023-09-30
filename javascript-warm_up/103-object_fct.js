@@ -1,18 +1,29 @@
 #!/usr/bin/node
-/* Update this script by adding a new function
-incr that increments the integer value. */
+
 const myObject = {
     type: 'object',
     value: 12
   };
   console.log(myObject);
-  myObject.incr = function () {
+  
+  // YOUR CODE HERE
+  myObject.incr = function() {
     this.value++;
   };
+  
+  function formatObject(obj) {
+    const formatted = JSON.stringify(obj, (key, value) => {
+      if (typeof value === 'function') {
+        return '[Function]';
+      }
+      return value;
+    }, 2);
+    console.log(formatted);
+  }
+  
+  formatObject(myObject);
   myObject.incr();
-  console.log(myObject);
+  formatObject(myObject);
   myObject.incr();
-  console.log(myObject);
-  myObject.incr();
-  console.log(myObject);
+  formatObject(myObject);
   
