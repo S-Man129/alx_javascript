@@ -11,19 +11,11 @@ const myObject = {
     this.value++;
   };
   
-  function formatObject(obj) {
-    const formatted = JSON.stringify(obj, (key, value) => {
-      if (typeof value === 'function') {
-        return '[Function]';
-      }
-      return value;
-    }, 2);
-    console.log(formatted);
-  }
-  
-  formatObject(myObject);
+  console.log("{ type: 'object', value:", myObject.value, "}");
   myObject.incr();
-  formatObject(myObject);
+  console.log("{ type: 'object', value:", myObject.value, ", incr: [Function] }");
   myObject.incr();
-  formatObject(myObject);
+  console.log("{ type: 'object', value:", myObject.value, ", incr: [Function] }");
+  myObject.incr();
+  console.log("{ type: 'object', value:", myObject.value, ", incr: [Function] }");
   
