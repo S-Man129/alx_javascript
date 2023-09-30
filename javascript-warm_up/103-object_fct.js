@@ -1,20 +1,18 @@
 #!/usr/bin/node
-
-const util = require('util');
-
+/* Update this script by adding a new function
+incr that increments the integer value. */
 const myObject = {
-  type: 'object',
-  value: 12
-};
-console.log(myObject);
-
-// YOUR CODE HERE
-myObject.incr = function incr() {
-  this.value++;
-};
-
-console.log(util.inspect(myObject, { depth: null }).replace(/Function \(incr\)/g, 'Function'));
-myObject.incr();
-console.log(util.inspect(myObject, { depth: null }).replace(/Function \(incr\)/g, 'Function'));
-myObject.incr();
-console.log(util.inspect(myObject, { depth: null }).replace(/Function \(incr\)/g, 'Function'));
+    type: 'object',
+    value: 12
+  };
+  console.log(myObject);
+  myObject.incr = function () {
+    this.value++;
+  };
+  myObject.incr();
+  console.log(myObject);
+  myObject.incr();
+  console.log(myObject);
+  myObject.incr();
+  console.log(myObject);
+  
