@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <div id="items-container">
+        <!-- Available items will be displayed here -->
+    </div>
+    <div id="cart-container">
+        <!-- Cart message will be displayed here -->
+    </div>
+    <script>
+        // Check if session storage is available
+        function isSessionStorageAvailable() {
+            try {
+                sessionStorage.setItem('test', 'test');
+                sessionStorage.removeItem('test');
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // Array of available items
+        const availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
+
+        // Function to add an item to the cart
+        function addItemToCart(item) {
+            sessionStorage.setItem(item, 'true');
+            displayCart();
+        }
+
+        // Function to create the store
+        function createStore() {
+            const itemsContainer = document.getElementById('items-container');
+
+            availableItems.forEach((item) => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                li.addEventListener('click', () => addItemToCart(item));
+                itemsContainer.appendChild(li);
+            });
+        }
+
+        // Function to display the cart
+        function displayCart() {
+            const cartContainer = document.getElementById('cart-container');
+            const cartItems = Object.keys(sessionStorage);
+
+            const cartMessage = document.createElement('p');
+            if (cartItems.length === 0) {
+                cartMessage.textContent = 'Your cart is empty.';
+            } else {
+                const itemList = cartItems.map((item) => `<li>${item}</li>`).join('');
+                cartMessage.innerHTML = `You previously had ${cartItems.length} items in your cart:<ul>${itemList}</ul>`;
+            }
+
+            // Clear previous content and append the cart message
+            cartContainer.innerHTML = '';
+            cartContainer.appendChild(cartMessage);
+        }
+
+        // Check if session storage is available and initialize the application
+        if (isSessionStorageAvailable()) {
+            createStore();
+            displayCart();
+        }
+    </script>
+</body>
+</html>
