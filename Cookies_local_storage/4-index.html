@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Task</title>
+    <style>
+        /* Define CSS for the welcome message */
+        .welcome-message {
+            font-style: italic;
+            display: inline;
+            margin-left: 10px;
+            font-weight: normal;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/src/js.cookie.js"></script>
+</head>
+<body>
+    <div id="loginForm" style="display:none;">
+        <h2>Login Form</h2>
+        <input type="text" id="firstname" placeholder="First Name">
+        <input type="text" id="email" placeholder="Email">
+        <button onclick="setCookiesAndShowWelcomeMessage()">Log me in</button>
+    </div>
+
+    <script>
+        function setCookiesAndShowWelcomeMessage() {
+            var firstnameValue = document.getElementById('firstname').value;
+            var emailValue = document.getElementById('email').value;
+
+            // Calculate the expiration date (10 days from now)
+            var expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 10);
+
+            // Set cookies for firstname and email with the expiration date using js-cookie
+            Cookies.set('firstname', firstnameValue, { expires: expirationDate });
+            Cookies.set('email', emailValue, { expires: expirationDate });
+
+            showWelcomeMessageOrForm();
+        }
+
+        function showForm() {
+            var welcomeMessage = document.querySelector('.welcome-message');
+            if (welcomeMessage) {
+                welcomeMessage.remove();
+            }
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function hideForm() {
+            document.getElementById('loginForm').style.display = 'none';
+        }
+
+        function deleteCookiesAndShowForm() {
+            // Remove the 'firstname' and 'email' cookies using js-cookie
+            Cookies.remove('firstname');
+            Cookies.remove('email');
+            showForm();
+        }
+
+        function showWelcomeMessageOrForm() {
+            var firstnameCookie = Cookies.get('firstname');
+
+            if (firstnameCookie) {
+                // User is logged in
+                hideForm();
+
+                var welcomeMessage = document.createElement('h1');
+                welcomeMessage.textContent = 'Welcome ' + firstnameCookie;
+
+                var logoutLink = document.createElement('a');
+                logoutLink.href = '#';
+                logoutLink.textContent = ' (logout)';
+                logoutLink.className = 'welcome-message';
+
+                welcomeMessage.appendChild(logoutLink);
+                logoutLink.addEventListener('click', function() {
+                    deleteCookiesAndShowForm();
+                    welcomeMessage.remove();
+                });
+
+                document.body.innerHTML = '';
+                document.body.appendChild(welcomeMessage);
+            } else {
+                // User is not logged in
+                showForm();
+            }
+        }
+
+        showWelcomeMessageOrForm(); // Initial check on page load
+    </script>
+</body>
+</html>
