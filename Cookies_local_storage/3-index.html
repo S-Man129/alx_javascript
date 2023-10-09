@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <div id="loginForm" style="display:none;">
+    <div id="loginForm">
         <h2>Login to the website</h2>
         <input type="text" id="firstname" placeholder="Firstname">
         <input type="text" id="email" placeholder="Email">
@@ -27,11 +27,8 @@
             var firstnameValue = document.getElementById('firstname').value;
             var emailValue = document.getElementById('email').value;
 
-            // Calculate the expiration date (10 days from now)
             var expirationDate = new Date();
             expirationDate.setDate(expirationDate.getDate() + 10);
-
-            // Format the expiration date in UTC
             var expires = "expires=" + expirationDate.toUTCString();
 
             // Set cookies for firstname and email with the expiration date
@@ -60,46 +57,41 @@
             document.getElementById('loginForm').style.display = 'block';
         }
 
-        function hideForm() {
-            document.getElementById('loginForm').style.display = 'none';
-        }
-
         function deleteCookiesAndShowForm() {
             document.cookie = "firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
             document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-            showForm();
+            showForm(); 
         }
 
         function showWelcomeMessageOrForm() {
             var firstnameCookie = getCookie('firstname');
 
             if (firstnameCookie) {
-                // User is logged in
-                hideForm();
-
-                var welcomeMessage = document.createElement('h1');
-                welcomeMessage.textContent = 'Welcome ' + firstnameCookie;
-
-                var logoutLink = document.createElement('a');
-                logoutLink.href = '#';
-                logoutLink.textContent = ' (logout)';
-                logoutLink.className = 'welcome-message';
-
-                welcomeMessage.appendChild(logoutLink);
-                logoutLink.addEventListener('click', function() {
-                    deleteCookiesAndShowForm();
-                    welcomeMessage.remove();
-                });
-
-                document.body.innerHTML = '';
-                document.body.appendChild(welcomeMessage);
+                showWelcomeMessage(firstnameCookie);
             } else {
-                // User is not logged in
                 showForm();
             }
         }
 
-        showWelcomeMessageOrForm(); // Initial check on page load
+        function showWelcomeMessage(firstname) {
+            var welcomeMessage = document.createElement('h1');
+            welcomeMessage.textContent = 'Welcome ' + firstname;
+
+            var logoutLink = document.createElement('a');
+            logoutLink.href = '#';
+            logoutLink.textContent = ' (logout)';
+            logoutLink.className = 'welcome-message';
+
+            welcomeMessage.appendChild(logoutLink);
+            logoutLink.addEventListener('click', function() {
+                deleteCookiesAndShowForm();
+            });
+
+            document.body.innerHTML = '';
+            document.body.appendChild(welcomeMessage);
+        }
+
+        showWelcomeMessageOrForm();
     </script>
 </body>
 </html>

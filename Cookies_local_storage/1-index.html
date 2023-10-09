@@ -14,7 +14,7 @@
     <button onclick="showCookies()">Show the cookies</button>
 
     <script type="text/javascript">
-        function setCookies(){
+        function setCookies() {
             var firstnameValue = document.getElementById('firstname').value;
             var emailValue = document.getElementById('email').value;
 
@@ -23,12 +23,12 @@
             expirationDate.setDate(expirationDate.getDate() + 10);
             var expires = "expires=" + expirationDate.toUTCString();
 
-            // Set Cookies for firstname and email
-            document.cookie = "firstname = " + firstnameValue + "; " + expires;
-            document.cookie = "email = " + emailValue + "; " + expires;
+            // Set Cookies for firstname and email with expiration date
+            document.cookie = "firstname=" + firstnameValue + "; " + expires;
+            document.cookie = "email=" + emailValue + "; " + expires;
         }
 
-        function showCookies(){
+        function showCookies() {
             var cookies = document.cookie.split(';');
 
             var cookieParagraph = document.createElement('p');
@@ -38,7 +38,7 @@
                 var cookie = cookies[i].trim();
                 cookieParagraph.innerHTML += cookie + ' ';
             }
-            
+
             document.body.appendChild(cookieParagraph)
         }
     </script>
