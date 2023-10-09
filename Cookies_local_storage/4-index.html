@@ -28,7 +28,6 @@
             var firstnameValue = document.getElementById('firstname').value;
             var emailValue = document.getElementById('email').value;
 
-            // Calculate the expiration date (10 days from now)
             var expirationDate = new Date();
             expirationDate.setDate(expirationDate.getDate() + 10);
 
@@ -52,7 +51,6 @@
         }
 
         function deleteCookiesAndShowForm() {
-            // Remove the 'firstname' and 'email' cookies using js-cookie
             Cookies.remove('firstname');
             Cookies.remove('email');
             showForm();
@@ -62,7 +60,6 @@
             var firstnameCookie = Cookies.get('firstname');
 
             if (firstnameCookie) {
-                // User is logged in
                 hideForm();
 
                 var welcomeMessage = document.createElement('h1');
@@ -82,12 +79,11 @@
                 document.body.innerHTML = '';
                 document.body.appendChild(welcomeMessage);
             } else {
-                // User is not logged in
                 showForm();
             }
         }
 
-        showWelcomeMessageOrForm(); // Initial check on page load
+        showWelcomeMessageOrForm();
     </script>
 </body>
 </html>
