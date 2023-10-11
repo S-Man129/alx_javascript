@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Retrieve the form and error elements
     var passwordForm = document.getElementById("passwordForm");
     var errorElement = document.getElementById("error");
 
-    // Add a submit event listener to the form
     passwordForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent the default form submission
 
@@ -13,11 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Call the validatePassword function to check password strength
         if (validatePassword(password)) {
-            // Password meets the criteria, clear the error message and submit the form
             errorElement.textContent = "";
             passwordForm.submit();
         } else {
-            // Password does not meet the criteria, display an error message
             errorElement.textContent = "Password does not meet the criteria.";
         }
     });
